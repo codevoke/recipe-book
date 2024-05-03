@@ -19,6 +19,11 @@ def add():
     return app.send_static_file('add.html')
 
 
+@app.route('/recipe')
+def recipe_by_id():
+    return app.send_static_file('recipe.html')
+
+
 # configure database
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

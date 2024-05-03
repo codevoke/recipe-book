@@ -36,6 +36,28 @@
                 content: "|";
             }
         }
+        .post {
+            position: relative;
+            box-sizing: border-box;
+            background: wheat;
+            max-width: 500px;
+            padding: 1em;
+            margin: 10px 0;
+            border-radius: 0.5em;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .post h3 {
+            margin: 0.5em 0 1em 1em;
+            font-size: 24px;
+        }
+        .post img {
+            max-width: 350px;
+            position: relative;
+            left: 50%;
+            border-radius: 0.5em;
+            transform: translateX(-50%);
+        }
         
     </style>
 </head>
@@ -62,15 +84,17 @@
                     const wrapper = document.createElement('div');
                     wrapper.classList.add('post');
 
-                    const link = document.createElement('a');
-                    link.href = `/recipe/${recipe.id}`;
+                    const link = document.createElement('h3');
                     link.textContent = recipe.title;
                     const image = document.createElement('img');
                     image.src = recipe.image;
                     image.style.width = "500px";
                     const hr = document.createElement('hr');
-
-                    wrapper.appendChild(link, image, hr);
+                    wrapper.addEventListener('click', () => {
+                        window.location.href = `/recipe?id=${recipe.id}`
+                    })
+                    wrapper.appendChild(link);
+                    wrapper.appendChild(image);
                     recipe_list.appendChild(wrapper);
                 });
                 loader.style.display = "none";

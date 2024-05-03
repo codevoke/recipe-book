@@ -14,12 +14,13 @@ class Recipe(Resource):
     def get(cls) -> tuple[dict[str, str], HTTPStatus]:
         _id = request.args.get("id")
 
-        if _id is not None:
+        if _id is None:
             return {"message": "id is required"}, HTTPStatus.BAD_REQUEST
         else:
             recipe = RecipeModel.get_by_id(_id)
             if recipe is None:
                 return {"message": "recipe not found"}, HTTPStatus.NOT_FOUND
+
             return recipe.json(), HTTPStatus.OK
 
     @classmethod
@@ -34,7 +35,6 @@ class Recipe(Resource):
         if image is not None:
             base64_image = base64.b64decode(image)
 
-            print(os.getcwd())
             filename = f"{recipe.id}.jpg"
             file = open("static/images/" + filename, "w")
             file.write(" ")

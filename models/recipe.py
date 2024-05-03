@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .db import db, BaseModel
+from .comment import Comment
 
 
 class Recipe(BaseModel):
@@ -17,6 +18,7 @@ class Recipe(BaseModel):
             "title": self.title,
             "description": self.description,
             "image": self.image,
+            "comments": [comment.json() for comment in self.get_comments()]
         }
     
     @classmethod
@@ -26,3 +28,6 @@ class Recipe(BaseModel):
     @classmethod
     def get_all(cls) -> list[Recipe]:
         return cls.query.all()
+    
+    def get_comments(self) -> list[Comment]:
+        return Comment.get_by_recipe_id(self.id)
